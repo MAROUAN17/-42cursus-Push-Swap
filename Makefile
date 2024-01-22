@@ -1,4 +1,4 @@
-SRCS = push_swap.c push_swap_utils.c swap_command.c push_command.c rotate_command.c r_rotate_command.c sorting_list.c parsing.c
+SRCS = sorting_list.c push_swap.c push_swap_utils.c swap_command.c push_command.c rotate_command.c r_rotate_command.c parsing.c
 OBJ_FILES = ${SRCS:.c=.o}
 
 CC = cc
@@ -18,7 +18,7 @@ ${FT_PRINTF_LIB}:
 	$(CC) $(CFLAGS) -c $< -o $@
 
 push_swap: ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB}
-	$(CC) $(CFLAGS) -fsanitize=address ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
+	$(CC) $(CFLAGS) -fsanitize=address -g ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
 
 clean:
 	rm -f ${OBJ_FILES}

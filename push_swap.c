@@ -9,21 +9,22 @@ void    display(l_linked **stack)
     current = *stack;
     while(current)
     {
-        ft_printf("%d ", current->data);
+        ft_printf("index -> %d, nbr -> %d\n", current->index, current->data);
         current = current->next;
     }
 }
 
 void    createNode(l_linked **head, int data)
 {
-    l_linked *newNode = NULL;
-    l_linked *current = NULL;
+    l_linked    *newNode = NULL;
+    l_linked    *current = NULL;
 
     newNode = (l_linked *)malloc(sizeof(l_linked));
     if(!newNode)
         return;
     newNode->data = data;
     newNode->next = NULL;
+    newNode->index = 0;
     if(!*head)
     {
         *head = newNode;

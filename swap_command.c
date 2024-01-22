@@ -12,6 +12,9 @@ void    sa(l_linked **stack_a)
         tmp = current->data;
         current->data = current->next->data;
         current->next->data = tmp;
+        tmp = current->index;
+        current->index = current->next->index;
+        current->next->index = tmp;
     }
     write(1, "sa\n", 3);
 }
@@ -28,6 +31,9 @@ void    sb(l_linked **stack_b)
         tmp = current->data;
         current->data = current->next->data;
         current->next->data = tmp;
+        tmp = current->index;
+        current->index = current->next->index;
+        current->next->index = tmp;
     }
     write(1, "sb\n", 3);
 }
@@ -45,6 +51,9 @@ void    ss(l_linked **stack_a, l_linked **stack_b)
         tmp = current_a->data;
         current_a->data = current_a->next->data;
         current_a->next->data = tmp;
+        tmp = current_a->index;
+        current_a->index = current_a->next->index;
+        current_a->next->index = tmp;
     }
     /*----------------sb---------------*/
     tmp = 0;
@@ -54,6 +63,9 @@ void    ss(l_linked **stack_a, l_linked **stack_b)
         tmp = current_b->data;
         current_b->data = current_b->next->data;
         current_b->next->data = tmp;
+        tmp = current_b->index;
+        current_b->index = current_b->next->index;
+        current_b->next->index = tmp;
     }
     write(1, "ss\n", 3);
 }

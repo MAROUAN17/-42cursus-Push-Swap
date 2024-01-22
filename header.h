@@ -6,6 +6,7 @@
 
 typedef struct t_linked {
     int             data;
+    int             index;
     struct t_linked *next;
     struct t_linked *previous;
 } l_linked;
@@ -21,6 +22,7 @@ size_t  check_number(char *number);
 int     check_doubles(l_linked *head);
 int     check_max_min(long number);
 long    ft_atoi(const char *str);
+void    sort(l_linked **stack_a, l_linked **stack_b);
 void    sa(l_linked **stack_a);
 void    sb(l_linked **stack_b);
 void    ss(l_linked **stack_a, l_linked **stack_b);
@@ -32,7 +34,5 @@ void    rr(l_linked **stack_a, l_linked **stack_b);
 void    rra(l_linked **stack_a);
 void    rrb(l_linked **stack_b);
 void    rrr(l_linked **stack_a, l_linked **stack_b);
-void    sort(l_linked **stack_a, l_linked **stack_b);
-int     count_numbers(l_linked **stack);
 
 #endif

@@ -83,3 +83,27 @@ long ft_atoi(const char *str)
 	}
 	return ((res * m));
 }
+
+void    increase_index(l_linked **stack)
+{
+    l_linked *first_node = NULL;
+
+    first_node = *stack;
+    while(first_node)
+    {
+        first_node->index += 1;
+        first_node = first_node->next;
+    }
+}
+
+void    decrease_index(l_linked **stack)
+{
+    l_linked *first_node = NULL;
+
+    first_node = *stack;
+    while(first_node)
+    {
+        first_node->index -= 1;
+        first_node = first_node->next;
+    }
+}
