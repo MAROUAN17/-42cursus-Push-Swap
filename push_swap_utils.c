@@ -1,109 +1,90 @@
-#include <unistd.h>
 #include "header.h"
 
-size_t check_number(char *number)
-{
-    size_t index;
-
-    index = 0;
-    if(*(number + index) == '-' || *(number + index) == '+')
-        index++;
-    while((*(number + index) && *(number + index) >= '0' && *(number + index) <= '9'))
-        index++;
-    return (index);
-}
-
-
-int check_doubles(l_linked *head)
+l_linked *find_lowest(l_linked **stack)
 {
     l_linked *current = NULL;
-    l_linked *prev = NULL;
+    l_linked *lowest = NULL;
 
-    current = head;
+    current = *stack;
+    lowest = current;
     while(current)
     {
-        if(current->previous)
-        {
-            prev = current->previous;
-            while(prev)
-            {
-                if(prev->data == current->data)
-                    return (1);
-                prev = prev->previous;
-            }
-        }
+        if(current->data < lowest->data)
+            lowest = current;
         current = current->next;
     }
-    return (0);
+    return (lowest);
 }
 
-int check_max_min(long number)
+l_linked *find_greatest(l_linked **stack)
 {
-    int i;
+    l_linked *current = NULL;
+    l_linked *greatest = NULL;
 
-    i = 0;
-    if(number > 2147483647)    
-        return (1);
-    else if(number < -2147483648)
-        return (1);
-    return (0);
-}
-
-int	check_m(const char *str, int *ptr_i)
-{
-	int	i;
-	int	m;
-
-	i = 0;
-	m = 1;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13)) 
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			m = -m;
-		i++;
-	}
-	*ptr_i = i;
-	return (m);
-}
-
-long ft_atoi(const char *str)
-{
-	int		i;
-	int     m;
-	long	res;
-
-	res = 0;
-	m = check_m(str, &i);
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-	{
-		res = res * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((res * m));
-}
-
-void    increase_index(l_linked **stack)
-{
-    l_linked *first_node = NULL;
-
-    first_node = *stack;
-    while(first_node)
+    current = *stack;
+    greatest = current;
+    while(current)
     {
-        first_node->index += 1;
-        first_node = first_node->next;
+        if(current->data > greatest->data)
+            greatest = current;
+        current = current->next;
     }
+    return (greatest);
 }
 
-void    decrease_index(l_linked **stack)
+int find_position(l_linked **stack, l_linked *to_find)
 {
-    l_linked *first_node = NULL;
+    l_linked *current = NULL;
+    int position;
 
-    first_node = *stack;
-    while(first_node)
+    current = *stack;
+    position = 1;
+    while(current->data != to_find->data)
     {
-        first_node->index -= 1;
-        first_node = first_node->next;
+        position++;
+        current = current->next;
     }
+    return (position);
+}
+
+int count_stack(l_linked **stack)
+{
+    int         count;
+    l_linked    *current = NULL;
+
+    count = 0;
+    current = *stack;
+    while(current)
+    {
+        count++;
+        current = current->next;
+    }
+    return (count);
+}
+
+int count_moves(l_linked **stack, l_linked *to_find, int reverse, int mid)
+{
+    l_linked *current = NULL;
+    int count;
+
+    count = 0;
+    current = *stack;
+    if(reverse == 0)
+    {
+        while(current->index != to_find->index && count <= mid)
+        {
+            count++;
+            current = current->next;
+        }
+    }
+    else
+    {
+        while(current && current->previous && current->index != to_find->index && count < mid)
+        {
+            count++;
+            current = current->previous;
+        }
+        count++;
+    }
+    return (count);
 }

@@ -1,4 +1,4 @@
-#include "header.h"
+#include "checker_bonus.h"
 
 void    rra(l_linked **stack_a)
 {
@@ -16,7 +16,6 @@ void    rra(l_linked **stack_a)
     last_node->next = *stack_a;
     last_node->previous = NULL;
     *stack_a = last_node;
-    write(1, "rra\n", 4);
 }
 
 void    rrb(l_linked **stack_b)
@@ -35,7 +34,6 @@ void    rrb(l_linked **stack_b)
     last_node->next = *stack_b;
     last_node->previous = NULL;
     *stack_b = last_node;
-    write(1, "rrb\n", 4);
 }
 
 void rrr(l_linked **stack_a, l_linked **stack_b)
@@ -46,7 +44,6 @@ void rrr(l_linked **stack_a, l_linked **stack_b)
     l_linked    *before_last_b = NULL;
     
     last_node_a = *stack_a;
-    last_node_b = *stack_b;
     while(last_node_a->next)
     {
         before_last_a = last_node_a;
@@ -57,6 +54,7 @@ void rrr(l_linked **stack_a, l_linked **stack_b)
     last_node_a->next = *stack_a;
     last_node_a->previous = NULL;
     *stack_a = last_node_a;
+    last_node_b = *stack_b;
     while(last_node_b->next)
     {
         before_last_b = last_node_b;
@@ -67,5 +65,4 @@ void rrr(l_linked **stack_a, l_linked **stack_b)
     last_node_b->next = *stack_b;
     last_node_b->previous = NULL;
     *stack_b = last_node_b;
-    write(1, "rrr\n", 4);
 }
