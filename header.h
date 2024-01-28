@@ -1,38 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 19:22:45 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/27 18:06:01 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HEADER_H
-#define HEADER_H
+# define HEADER_H
 
-#include <unistd.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-typedef struct t_linked {
-    int             data;
-    int             index;
-    struct t_linked *next;
-    struct t_linked *previous;
-} l_linked;
+typedef struct l_linked
+{
+	int				data;
+	int				index;
+	struct l_linked	*next;
+	struct l_linked	*previous;
+}	t_linked;
 
-void    display(l_linked **stack);
-void    check_multiple_arguments(int ac, char **av, l_linked **stack_a, l_linked **stack_b);
-void    check_one_argument(char **av, l_linked **stack_a, l_linked **stack_b);
-void    createNode(l_linked **head, int data);
-int     ft_printf(const char *format, ...);
-size_t	ft_strlen(const char *s);
-char	**ft_split(char const *s, char c);
-size_t  check_number(char *number);
-int     check_doubles(l_linked *head);
-int     check_max_min(long number);
-long    ft_atoi(const char *str);
-void    sort(l_linked **stack_a, l_linked **stack_b);
-void    sa(l_linked **stack_a);
-void    sb(l_linked **stack_b);
-void    ss(l_linked **stack_a, l_linked **stack_b);
-void    pa(l_linked **stack_a, l_linked **stack_b);
-void    pb(l_linked **stack_a, l_linked **stack_b);
-void    ra(l_linked **stack_a);
-void    rb(l_linked **stack_b);
-void    rr(l_linked **stack_a, l_linked **stack_b);
-void    rra(l_linked **stack_a);
-void    rrb(l_linked **stack_b);
-void    rrr(l_linked **stack_a, l_linked **stack_b);
+void		get_last_node(t_linked **head);
+int			moves_to_head(t_linked **stack_a, t_linked **stack_b,
+				t_linked *to_find, t_linked *to_find_b);
+int			r_moves_to_head(t_linked **current_a, t_linked **current_b,
+				t_linked *to_find, t_linked *to_find_b);
+t_linked	*check_before_sort(t_linked **stack_a);
+void		free_stack(t_linked **head);
+void		bring_to_top_a(t_linked **stack_a, t_linked *cheapest_node,
+				int reverse);
+void		bring_to_top_b(t_linked **stack_b, t_linked *to_find_b,
+				int reverse);
+int			before_mid(t_linked **stack_a, t_linked **stack_b,
+				t_linked *to_find, t_linked *to_find_b);
+int			after_mid(t_linked **stack_a, t_linked **stack_b,
+				t_linked *to_find, t_linked *to_find_b);
+int			after_before(t_linked **stack_a, t_linked **stack_b,
+				t_linked *to_find, t_linked *to_find_b);
+int			before_after(t_linked **stack_a, t_linked **stack_b,
+				t_linked *to_find, t_linked *to_find_b);
+void		cheapest_after_mid(t_linked **stack_a, t_linked **stack_b,
+				t_linked *cheapest_node, t_linked *to_find_b);
+int			count_stack_mid(t_linked **stack);
+t_linked	*correct_position(t_linked **stack,
+				t_linked *node, int len, int reverse);
+t_linked	*find_lowest(t_linked **stack);
+t_linked	*find_greatest(t_linked **stack);
+int			find_position(t_linked **stack, t_linked *to_find);
+t_linked	*correct_position(t_linked **stack,
+				t_linked *node, int len, int back);
+int			count_moves(t_linked **stack,
+				t_linked *to_find, int reverse, int mid);
+int			count_stack(t_linked **stack);
+void		display(t_linked **stack);
+int			check_arguments(int ac, char **av,
+				t_linked **stack_a);
+void		create_node(t_linked **head, int data);
+int			ft_printf(const char *format, ...);
+size_t		ft_strlen(const char *s);
+char		**ft_split(char const *s, char c);
+size_t		check_number(char *number);
+int			check_doubles(t_linked *head);
+int			check_max_min(long number);
+long		ft_atoi(const char *str);
+int			count_cheapest(t_linked **stack_a,
+				t_linked **stack_b, t_linked *to_find);
+void		sort(t_linked **stack_a, t_linked **stack_b);
+void		sa(t_linked **stack_a);
+void		sb(t_linked **stack_b);
+void		ss(t_linked **stack_a, t_linked **stack_b);
+void		pa(t_linked **stack_a, t_linked **stack_b);
+void		pb(t_linked **stack_a, t_linked **stack_b);
+void		ra(t_linked **stack_a);
+void		rb(t_linked **stack_b);
+void		rr(t_linked **stack_a, t_linked **stack_b);
+void		rra(t_linked **stack_a);
+void		rrb(t_linked **stack_b);
+void		rrr(t_linked **stack_a, t_linked **stack_b);
+void		two_numbers_sort(t_linked **stack_a);
+void		three_numbers_sort(t_linked **stack_a);
+void		four_numbers_sort(t_linked **stack_a, t_linked **stack_b);
+void		rest_of_numbers_sort(t_linked **stack_a, t_linked **stack_b);
 
 #endif

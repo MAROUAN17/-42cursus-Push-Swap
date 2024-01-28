@@ -6,17 +6,17 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:24:19 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/26 19:03:21 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/27 09:45:50 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	before_mid(l_linked **stack_a, l_linked **stack_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	before_mid(t_linked **stack_a, t_linked **stack_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
-	l_linked	*current_a;
-	l_linked	*current_b;
+	t_linked	*current_a;
+	t_linked	*current_b;
 	int			mid_a;
 	int			mid_b;
 	int			count;
@@ -26,9 +26,6 @@ int	before_mid(l_linked **stack_a, l_linked **stack_b,
 	mid_b = count_stack_mid(stack_b);
 	current_a = *stack_a;
 	current_b = *stack_b;
-	if (current_a && current_b && current_a->index == to_find->index
-		&& current_b->index == to_find_b->index)
-		count++;
 	count += moves_to_head(&current_a, &current_b, to_find, to_find_b);
 	if (current_a->index != to_find->index)
 		count += count_moves(&current_a, to_find, 0, mid_a);
@@ -37,11 +34,11 @@ int	before_mid(l_linked **stack_a, l_linked **stack_b,
 	return (count);
 }
 
-int	after_mid(l_linked **stack_a, l_linked **stack_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	after_mid(t_linked **stack_a, t_linked **stack_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
-	l_linked	*current_a;
-	l_linked	*current_b;
+	t_linked	*current_a;
+	t_linked	*current_b;
 	int			mid_a;
 	int			mid_b;
 	int			count;
@@ -65,10 +62,10 @@ int	after_mid(l_linked **stack_a, l_linked **stack_b,
 	return (count);
 }
 
-int	after_before(l_linked **stack_a, l_linked **stack_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	after_before(t_linked **stack_a, t_linked **stack_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
-	l_linked	*current_a;
+	t_linked	*current_a;
 	int			mid_a;
 	int			mid_b;
 	int			count;
@@ -86,10 +83,10 @@ int	after_before(l_linked **stack_a, l_linked **stack_b,
 	return (count);
 }
 
-int	before_after(l_linked **stack_a, l_linked **stack_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	before_after(t_linked **stack_a, t_linked **stack_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
-	l_linked	*current_b;
+	t_linked	*current_b;
 	int			mid_a;
 	int			mid_b;
 	int			count;

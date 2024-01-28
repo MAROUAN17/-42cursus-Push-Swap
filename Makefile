@@ -1,6 +1,6 @@
 SRCS = sorting_list.c push_swap.c parsing_utils.c push_swap_utils.c push_swap_utils2.c \
 	  swap_command.c push_command.c rotate_command.c r_rotate_command.c parsing.c \
-	  sort_two_numbers.c sort_three_numbers.c sort_four_numbers.c sort_five_numbers.c rest_of_numbers_sort.c \
+	  sort_two_numbers.c sort_three_numbers.c sort_four_numbers.c rest_of_numbers_sort.c \
 	  count_cheapest.c count_cheapest_utils.c 
 OBJ_FILES = ${SRCS:.c=.o}
 
@@ -28,13 +28,13 @@ ${FT_PRINTF_LIB}:
 	$(CC) $(CFLAGS) -c -g $< -o $@
 
 push_swap: ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB}
-	$(CC) $(CFLAGS) ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
+	$(CC) $(CFLAGS) ${OBJ_FILES} -g ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
 
 %_bonus.o: %_bonus.c checker_bonus.h ${NEXT_LINE_H}
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c -g $< -o $@
 
 bonus: ${OBJ_FILES_BNS} ${LIBFT_LIB} ${FT_PRINTF_LIB}
-	$(CC) $(CFLAGS) ${OBJ_FILES_BNS} -fsanitize=address -g ${LIBFT_LIB} ${FT_PRINTF_LIB} -o ./bonus/checker
+	$(CC) $(CFLAGS) ${OBJ_FILES_BNS} -g ${LIBFT_LIB} ${FT_PRINTF_LIB} -o ./bonus/checker
 
 clean:
 	rm -f ${OBJ_FILES} ${OBJ_FILES_BNS}

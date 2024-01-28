@@ -1,61 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 10:30:35 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/27 18:56:10 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-void    check_multiple_arguments(int ac, char **av, l_linked **stack_a, l_linked **stack_b)
+int	count_strings(char **numbers)
 {
-	l_linked    *curr = NULL;
-	int         number;
-	int         index;
-	int         check;
+	int	nbr_num;
+
+	nbr_num = 0;
+	while (numbers[nbr_num])
+		nbr_num++;
+	return (nbr_num);
+}
+
+int	create_nodes_from_arguments(t_linked **stack_a, char **numbers)
+{
+	int	index;
+	int	check;
+
+	index = 0;
+	check = 0;
+	while (index < count_strings(numbers))
+	{
+		if ((check_number(numbers[index]) != ft_strlen(numbers[index]))
+			|| (check_max_min(ft_atoi(numbers[index])) == 1))
+		{
+			check = 1;
+			break ;
+		}
+		create_node(stack_a, ft_atoi(numbers[index]));
+		index++;
+	}
+	index = 0;
+	while (index < count_strings(numbers))
+	{
+		free(numbers[index]);
+		index++;
+	}
+	free(numbers);
+	return (check);
+}
+
+int	check_arguments(int ac, char **av, t_linked **stack_a)
+{
+	int			number;
+	int			index;
+	int			check;
+	char		**numbers;
 
 	index = 1;
 	check = 0;
 	number = 0;
-	while(index < ac)
+	while (index < ac)
 	{
-		if((check_number(av[index]) != ft_strlen(av[index])) 
-			|| (check_max_min(ft_atoi(av[index])) == 1))
+		numbers = ft_split(av[index], ' ');
+		if (!numbers)
 		{
-			check = 1;
-			break;
+			free_stack(stack_a);
+			exit(0);
 		}
-		createNode(stack_a, ft_atoi(av[index]));
+		check = create_nodes_from_arguments(stack_a, numbers);
+		if (check)
+			break ;
 		index++;
 	}
-	curr = check_before_sort(stack_a);
-	if(!check && !check_doubles(*stack_a) && !curr)
-		sort(stack_a, stack_b);
-	else   
-		ft_printf("Error\n");
-}
-
-void    check_one_argument(char **av, l_linked **stack_a, l_linked **stack_b)
-{
-	l_linked    *curr = NULL;
-	int         check;
-	int         index;
-	int         nbr_num;
-	char        **numbers;
-
-	check = 0;
-	index = 0;
-	nbr_num = 0;
-	numbers = ft_split(av[1], ' ');
-	while(numbers[nbr_num])
-		nbr_num++;
-	while(index < nbr_num)
-	{
-		if(((check_number(numbers[index]) != ft_strlen(numbers[index])) 
-			|| (check_max_min(ft_atoi(numbers[index])) == 1)))
-		{
-			check = 1; 
-			break;
-		}
-		createNode(stack_a, ft_atoi(numbers[index]));
-		index++;
-	}
-	curr = check_before_sort(stack_a);
-	if(!check && !check_doubles(*stack_a) && !curr)
-		sort(stack_a, stack_b);
-	else   
-		ft_printf("Error\n");
+	if (check || check_doubles(*stack_a))
+		return (0);
+	else
+		return (1);
 }

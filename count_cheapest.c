@@ -6,14 +6,14 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:19:29 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/26 19:19:30 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:38:13 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	moves_to_head(l_linked **current_a, l_linked **current_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	moves_to_head(t_linked **current_a, t_linked **current_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
 	int	count;
 
@@ -28,8 +28,8 @@ int	moves_to_head(l_linked **current_a, l_linked **current_b,
 	return (count);
 }
 
-int	r_moves_to_head(l_linked **current_a, l_linked **current_b,
-	l_linked *to_find, l_linked *to_find_b)
+int	r_moves_to_head(t_linked **current_a, t_linked **current_b,
+	t_linked *to_find, t_linked *to_find_b)
 {
 	int	count;
 
@@ -50,8 +50,8 @@ int	r_moves_to_head(l_linked **current_a, l_linked **current_b,
 	return (count);
 }
 
-int	push_to_b(l_linked **stack_a, l_linked **stack_b,
-	l_linked *to_find, l_linked *current_bl)
+int	push_to_b(t_linked **stack_a, t_linked **stack_b,
+	t_linked *to_find, t_linked *current_bl)
 {
 	int			position_a;
 	int			position_b;
@@ -75,8 +75,8 @@ int	push_to_b(l_linked **stack_a, l_linked **stack_b,
 	return (count);
 }
 
-int	new_smallest_greatest(l_linked **stack_a,
-	l_linked **stack_b, l_linked *to_find)
+int	new_smallest_greatest(t_linked **stack_a,
+	t_linked **stack_b, t_linked *to_find)
 {
 	int	position_a;
 	int	position_b;
@@ -102,9 +102,9 @@ int	new_smallest_greatest(l_linked **stack_a,
 	return (count);
 }
 
-int	count_cheapest(l_linked **stack_a, l_linked **stack_b, l_linked *to_find)
+int	count_cheapest(t_linked **stack_a, t_linked **stack_b, t_linked *to_find)
 {
-	l_linked	*current_bl;
+	t_linked	*current_bl;
 	int			count;
 	int			len_b;
 
