@@ -1,71 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_sort_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 15:00:18 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/29 16:17:01 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker_bonus.h"
 
-int count_stack(l_linked **stack)
+int	count_stack(t_linked **stack)
 {
-    int         count;
-    l_linked    *current = NULL;
+	int			count;
+	t_linked	*current;
 
-    count = 0;
-    current = *stack;
-    while(current)
-    {
-        count++;
-        current = current->next;
-    }
-    return (count);
+	count = 0;
+	current = *stack;
+	while (current)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }
 
-void    make_instruction(l_linked **stack_a, l_linked **stack_b, char *instruction)
+void	error_instruction(t_linked **stack_a, t_linked **stack_b)
 {
-    if(ft_strncmp(instruction, "sa\n", 3) == 0)   
-        sa(stack_a);
-    else if(ft_strncmp(instruction, "sb\n", 3) == 0)
-        sb(stack_a);
-    else if(ft_strncmp(instruction, "ss\n", 3) == 0)
-        ss(stack_a, stack_b);
-    else if(ft_strncmp(instruction, "pa\n", 3) == 0)
-        pa(stack_a, stack_b);
-    else if(ft_strncmp(instruction, "pb\n", 3) == 0)
-        pb(stack_a, stack_b);
-    else if(ft_strncmp(instruction, "ra\n", 3) == 0)
-        ra(stack_a);
-    else if(ft_strncmp(instruction, "rb\n", 3) == 0)
-        rb(stack_b);
-    else if(ft_strncmp(instruction, "rr\n", 3) == 0)
-        rr(stack_a, stack_b);
-    else if(ft_strncmp(instruction, "rra\n", 4) == 0)    
-        rra(stack_a);
-    else if(ft_strncmp(instruction, "rrb\n", 4) == 0)
-        rrb(stack_b);
-    else if(ft_strncmp(instruction, "rrr\n", 4) == 0)
-        rrr(stack_a, stack_b);
-    else
-    {    
-        ft_printf("Error");
-        exit(0);
-    }
+	write(2, "Error\n", 6);
+	free_stack(stack_a);
+	free_stack(stack_b);
+	exit(1);
 }
 
-void    check_sort(l_linked **stack_a, int stack_len)
+void	make_instruction(t_linked **stack_a,
+		t_linked **stack_b, char *instruction)
 {
-    l_linked *current = NULL;
+	if (ft_strncmp(instruction, "sa\n", 3) == 0)
+		sa(stack_a);
+	else if (ft_strncmp(instruction, "sb\n", 3) == 0)
+		sb(stack_b);
+	else if (ft_strncmp(instruction, "ss\n", 3) == 0)
+		ss(stack_a, stack_b);
+	else if (ft_strncmp(instruction, "pa\n", 3) == 0)
+		pa(stack_a, stack_b);
+	else if (ft_strncmp(instruction, "pb\n", 3) == 0)
+		pb(stack_a, stack_b);
+	else if (ft_strncmp(instruction, "ra\n", 3) == 0)
+		ra(stack_a);
+	else if (ft_strncmp(instruction, "rb\n", 3) == 0)
+		rb(stack_b);
+	else if (ft_strncmp(instruction, "rr\n", 3) == 0)
+		rr(stack_a, stack_b);
+	else if (ft_strncmp(instruction, "rra\n", 4) == 0)
+		rra(stack_a);
+	else if (ft_strncmp(instruction, "rrb\n", 4) == 0)
+		rrb(stack_b);
+	else if (ft_strncmp(instruction, "rrr\n", 4) == 0)
+		rrr(stack_a, stack_b);
+	else
+		error_instruction(stack_a, stack_b);
+}
 
-    current = *stack_a;
-    while(current->next)
-    {
-        if(current->data > current->next->data)
-        {  
-            ft_printf("KO");
-            exit(0);
-        }
-        current = current->next;
-    }
-    if(current)
-    {
-        if(count_stack(stack_a) != stack_len - 1)
-            ft_printf("KO");
-        else
-            ft_printf("OK");
-        exit(1);
-    }
+void	check_sort(t_linked **stack_a, int stack_len)
+{
+	t_linked	*current;
+
+	current = *stack_a;
+	while (current->next)
+	{
+		if (current->data > current->next->data)
+		{
+			ft_printf("KO\n");
+			exit(0);
+		}
+		current = current->next;
+	}
+	if (current)
+	{
+		if (count_stack(stack_a) != stack_len)
+			ft_printf("KO\n");
+		else
+			ft_printf("OK\n");
+	}
 }

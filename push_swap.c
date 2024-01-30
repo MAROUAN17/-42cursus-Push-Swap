@@ -6,7 +6,7 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:54:14 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/27 20:42:39 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:32:46 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ void	free_stack(t_linked **head)
 	}
 }
 
-void	display(t_linked **stack)
-{
-	t_linked	*current;
-
-	current = *stack;
-	while (current)
-	{
-		ft_printf("index -> %d, nbr -> %d\n", current->index, current->data);
-		current = current->next;
-	}
-}
-
 void	create_node(t_linked **head, int data)
 {
 	t_linked	*new_node;
@@ -55,7 +43,7 @@ void	create_node(t_linked **head, int data)
 	if (!new_node)
 	{
 		free_stack(head);
-		return ;
+		exit(1);
 	}
 	new_node->data = data;
 	new_node->next = NULL;
@@ -86,8 +74,8 @@ int	main(int ac, char **av)
 	{
 		check = check_arguments(ac, av, &stack_a);
 		if (!check)
-			ft_printf("Error");
-		else if (check && !check_before_sort(&stack_a))
+			write(2, "Error\n", 6);
+		else if (check)
 			sort(&stack_a, &stack_b);
 		free_stack(&stack_a);
 		free_stack(&stack_b);

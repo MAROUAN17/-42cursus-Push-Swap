@@ -1,58 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 15:12:07 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/29 16:17:43 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker_bonus.h"
 
-void    check_multiple_arguments(int ac, char **av, l_linked **stack_a, l_linked **stack_b)
+int	count_strings(char **numbers)
 {
-    int         number;
-    int         index;
-    int         check;
+	int	nbr_num;
 
-    index = 1;
-    check = 0;
-    number = 0;
-    while(index < ac)
-    {
-        if((check_number(av[index]) != ft_strlen(av[index]))
-            || (check_max_min(ft_atoi(av[index])) == 1))
-        {   
-            check = 1;
-            break;
-        }
-        createNode(stack_a, ft_atoi(av[index]));
-        index++;
-    }
-    if(check || check_doubles(*stack_a))
-        ft_printf("Error\n");
-    else
-        receive_instruction(stack_a, stack_b, ac);
+	nbr_num = 0;
+	while (numbers[nbr_num])
+		nbr_num++;
+	return (nbr_num);
 }
 
-void    check_one_argument(char **av, l_linked **stack_a, l_linked **stack_b)
+void	free_2d_table(char **numbers)
 {
-    int     check;
-    int     index;
-    int     nbr_num;
-    char    **numbers;
+	int	index;
 
-    check = 0;
-    index = 0;
-    nbr_num = 0;
-    *stack_b = NULL;
-    numbers = ft_split(av[1], ' ');
-    while(numbers[nbr_num])
-        nbr_num++;
-    while(index < nbr_num)
-    {
-        if(((check_number(numbers[index]) != ft_strlen(numbers[index]))
-            || (check_max_min(ft_atoi(numbers[index])) == 1)))
-        {
-            check = 1;
-            break;
-        }
-        createNode(stack_a, ft_atoi(numbers[index]));
-        index++;
-    }
-    if(check || check_doubles(*stack_a))    
-        ft_printf("Error\n");
-    else
-        receive_instruction(stack_a, stack_b, index + 1);
+	index = 0;
+	while (numbers[index] && index < count_strings(numbers))
+	{
+		free(numbers[index]);
+		index++;
+	}
+	free(numbers);
+}
+
+int	create_nodes_from_arguments(t_linked **stack_a, char **numbers,
+		int *ptr_len)
+{
+	int	index;
+	int	check;
+
+	index = 0;
+	check = 0;
+	if (count_strings(numbers) == 0)
+		check = 1;
+	while (index < count_strings(numbers))
+	{
+		if ((check_number(numbers[index]) != ft_strlen(numbers[index]))
+			|| (check_max_min(ft_atoi(numbers[index])) == 1)
+			|| !numbers[index])
+		{
+			check = 1;
+			break ;
+		}
+		create_node(stack_a, ft_atoi(numbers[index]));
+		index++;
+	}
+	*ptr_len += count_strings(numbers);
+	free_2d_table(numbers);
+	return (check);
+}
+
+void	check_arguments(int ac, char **av,
+		t_linked **stack_a, t_linked **stack_b)
+{
+	int		check;
+	int		index;
+	int		len;
+	char	**numbers;
+
+	check = 0;
+	index = 1;
+	len = 0;
+	while (index < ac)
+	{
+		numbers = ft_split(av[index], ' ');
+		if (!numbers)
+		{
+			free_stack(stack_a);
+			exit(1);
+		}
+		check = create_nodes_from_arguments(stack_a, numbers, &len);
+		if (check)
+			break ;
+		index++;
+	}
+	if (check || check_doubles(*stack_a))
+		write(2, "Error\n", 6);
+	else
+		receive_instruction(stack_a, stack_b, len);
 }

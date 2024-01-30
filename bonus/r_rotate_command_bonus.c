@@ -1,68 +1,97 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   r_rotate_command_bonus.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 15:14:54 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/29 15:53:54 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker_bonus.h"
 
-void    rra(l_linked **stack_a)
+void	get_last_node(t_linked **last_node)
 {
-    l_linked    *last_node = NULL;
-    l_linked    *before_last = NULL;
-    
-    last_node = *stack_a;
-    while(last_node->next)
-    {
-        before_last = last_node;
-        last_node = last_node->next;
-    }
-    before_last->next = NULL;
-    (*stack_a)->previous = last_node;
-    last_node->next = *stack_a;
-    last_node->previous = NULL;
-    *stack_a = last_node;
+	while ((*last_node)->next)
+		*last_node = (*last_node)->next;
 }
 
-void    rrb(l_linked **stack_b)
+void	get_before_last_node(t_linked **before_last)
 {
-    l_linked *last_node = NULL;
-    l_linked *before_last = NULL;
-    
-    last_node = *stack_b;
-    while(last_node->next)
-    {
-        before_last = last_node;
-        last_node = last_node->next;
-    }
-    before_last->next = NULL;
-    (*stack_b)->previous = last_node;
-    last_node->next = *stack_b;
-    last_node->previous = NULL;
-    *stack_b = last_node;
+	t_linked	*current;
+
+	current = *before_last;
+	while (current->next)
+	{
+		*before_last = current;
+		current = current->next;
+	}
 }
 
-void rrr(l_linked **stack_a, l_linked **stack_b)
+void	rra(t_linked **stack_a)
 {
-    l_linked    *last_node_a = NULL;
-    l_linked    *last_node_b = NULL;
-    l_linked    *before_last_a = NULL;
-    l_linked    *before_last_b = NULL;
-    
-    last_node_a = *stack_a;
-    while(last_node_a->next)
-    {
-        before_last_a = last_node_a;
-        last_node_a = last_node_a->next;
-    }
-    before_last_a->next = NULL;
-    (*stack_a)->previous = last_node_a;
-    last_node_a->next = *stack_a;
-    last_node_a->previous = NULL;
-    *stack_a = last_node_a;
-    last_node_b = *stack_b;
-    while(last_node_b->next)
-    {
-        before_last_b = last_node_b;
-        last_node_b = last_node_b->next;
-    }
-    before_last_b->next = NULL;
-    (*stack_b)->previous = last_node_b;
-    last_node_b->next = *stack_b;
-    last_node_b->previous = NULL;
-    *stack_b = last_node_b;
+	t_linked	*last_node;
+	t_linked	*before_last;
+
+	if (*stack_a && (*stack_a)->next)
+	{
+		last_node = *stack_a;
+		before_last = *stack_a;
+		get_last_node(&last_node);
+		get_before_last_node(&before_last);
+		before_last->next = NULL;
+		(*stack_a)->previous = last_node;
+		last_node->next = *stack_a;
+		last_node->previous = NULL;
+		*stack_a = last_node;
+	}
+}
+
+void	rrb(t_linked **stack_b)
+{
+	t_linked	*last_node;
+	t_linked	*before_last;
+
+	if (*stack_b)
+	{
+		last_node = *stack_b;
+		before_last = *stack_b;
+		get_last_node(&last_node);
+		get_before_last_node(&before_last);
+		before_last->next = NULL;
+		(*stack_b)->previous = last_node;
+		last_node->next = *stack_b;
+		last_node->previous = NULL;
+		*stack_b = last_node;
+	}
+}
+
+void	rrr(t_linked **stack_a, t_linked **stack_b)
+{
+	t_linked	*last_node;
+	t_linked	*before_last;
+
+	if (*stack_a && *stack_b)
+	{
+		last_node = *stack_a;
+		before_last = *stack_a;
+		get_last_node(&last_node);
+		get_before_last_node(&before_last);
+		before_last->next = NULL;
+		(*stack_a)->previous = last_node;
+		last_node->next = *stack_a;
+		last_node->previous = NULL;
+		*stack_a = last_node;
+		last_node = *stack_b;
+		before_last = *stack_b;
+		get_last_node(&last_node);
+		get_before_last_node(&before_last);
+		before_last->next = NULL;
+		(*stack_b)->previous = last_node;
+		last_node->next = *stack_b;
+		last_node->previous = NULL;
+		*stack_b = last_node;
+	}
 }

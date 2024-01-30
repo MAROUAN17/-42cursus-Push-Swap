@@ -25,16 +25,16 @@ ${FT_PRINTF_LIB}:
 	cd ./ft_printf && make
 
 %.o: %.c header.h
-	$(CC) $(CFLAGS) -c -g $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 push_swap: ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB}
-	$(CC) $(CFLAGS) ${OBJ_FILES} -g ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
+	$(CC) $(CFLAGS) ${OBJ_FILES} ${LIBFT_LIB} ${FT_PRINTF_LIB} -o push_swap
 
 %_bonus.o: %_bonus.c checker_bonus.h ${NEXT_LINE_H}
-	$(CC) $(CFLAGS) -c -g $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: ${OBJ_FILES_BNS} ${LIBFT_LIB} ${FT_PRINTF_LIB}
-	$(CC) $(CFLAGS) ${OBJ_FILES_BNS} -g ${LIBFT_LIB} ${FT_PRINTF_LIB} -o ./bonus/checker
+	$(CC) $(CFLAGS) ${OBJ_FILES_BNS} ${LIBFT_LIB} ${FT_PRINTF_LIB} -o checker
 
 clean:
 	rm -f ${OBJ_FILES} ${OBJ_FILES_BNS}
@@ -42,6 +42,6 @@ clean:
 	cd ./ft_printf && make clean
 
 fclean: clean
-	rm -f push_swap ./bonus/checker
+	rm -f push_swap checker
 	cd ./libft && make fclean
 	cd ./ft_printf && make fclean

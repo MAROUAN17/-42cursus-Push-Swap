@@ -6,7 +6,7 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:30:35 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/27 18:56:10 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:18:02 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ int	count_strings(char **numbers)
 	return (nbr_num);
 }
 
+void	free_2d_table(char **numbers)
+{
+	int	index;
+
+	index = 0;
+	while (numbers[index] && index < count_strings(numbers))
+	{
+		free(numbers[index]);
+		index++;
+	}
+	free(numbers);
+}
+
 int	create_nodes_from_arguments(t_linked **stack_a, char **numbers)
 {
 	int	index;
@@ -29,10 +42,12 @@ int	create_nodes_from_arguments(t_linked **stack_a, char **numbers)
 
 	index = 0;
 	check = 0;
+	if (count_strings(numbers) == 0)
+		check = 1;
 	while (index < count_strings(numbers))
 	{
 		if ((check_number(numbers[index]) != ft_strlen(numbers[index]))
-			|| (check_max_min(ft_atoi(numbers[index])) == 1))
+			|| (check_max_min(ft_atoi(numbers[index])) == 1) || !numbers[index])
 		{
 			check = 1;
 			break ;
@@ -40,13 +55,7 @@ int	create_nodes_from_arguments(t_linked **stack_a, char **numbers)
 		create_node(stack_a, ft_atoi(numbers[index]));
 		index++;
 	}
-	index = 0;
-	while (index < count_strings(numbers))
-	{
-		free(numbers[index]);
-		index++;
-	}
-	free(numbers);
+	free_2d_table(numbers);
 	return (check);
 }
 
@@ -73,7 +82,7 @@ int	check_arguments(int ac, char **av, t_linked **stack_a)
 			break ;
 		index++;
 	}
-	if (check || check_doubles(*stack_a))
+	if (check || check_doubles(*stack_a) || check_before_sort(stack_a))
 		return (0);
 	else
 		return (1);

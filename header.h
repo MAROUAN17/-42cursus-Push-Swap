@@ -6,7 +6,7 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:22:45 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/27 18:06:01 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:32:41 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_linked	*correct_position(t_linked **stack,
 int			count_moves(t_linked **stack,
 				t_linked *to_find, int reverse, int mid);
 int			count_stack(t_linked **stack);
-void		display(t_linked **stack);
 int			check_arguments(int ac, char **av,
 				t_linked **stack_a);
 void		create_node(t_linked **head, int data);

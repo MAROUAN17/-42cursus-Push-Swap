@@ -1,68 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 15:05:31 by maglagal          #+#    #+#             */
+/*   Updated: 2024/01/29 16:32:50 by maglagal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker_bonus.h"
 
-void free_stack(l_linked **head)
+void	free_stack(t_linked **head)
 {
-    l_linked *current = NULL;
-    l_linked *tmp = NULL;
+	t_linked	*current;
+	t_linked	*tmp;
 
-    current = *head;
-    while(current)
-    {    
-        tmp = current;
-        current = current->next;
-        free(tmp);
-    }
+	current = *head;
+	while (current)
+	{
+		tmp = current;
+		current = current->next;
+		free(tmp);
+	}
 }
 
-void    createNode(l_linked **head, int data)
+void	create_node(t_linked **head, int data)
 {
-    l_linked    *newNode = NULL;
-    l_linked    *current = NULL;
+	t_linked	*newnode;
+	t_linked	*current;
 
-    newNode = (l_linked *)malloc(sizeof(l_linked));
-    if(!newNode)
-        return;
-    newNode->data = data;
-    newNode->next = NULL;
-    newNode->index = 0;
-    if(!*head)
-    {
-        *head = newNode;
-        newNode->previous = NULL;
-    }
-    else
-    {
-        current = *head;
-        while(current->next)
-            current = current->next;
-        current->next = newNode;
-        newNode->previous = current;
-    }
+	current = NULL;
+	newnode = (t_linked *)malloc(sizeof(t_linked));
+	if (!newnode)
+		return ;
+	newnode->data = data;
+	newnode->next = NULL;
+	newnode->index = 0;
+	if (!*head)
+	{
+		*head = newnode;
+		newnode->previous = NULL;
+	}
+	else
+	{
+		current = *head;
+		while (current->next)
+			current = current->next;
+		current->next = newnode;
+		newnode->previous = current;
+	}
 }
 
-void    receive_instruction(l_linked **stack_a, l_linked **stack_b, int len)
+void	receive_instruction(t_linked **stack_a, t_linked **stack_b, int len)
 {
-    char *instruction;
+	char	*instruction;
 
-    instruction = get_next_line(0);
-    while(instruction)
-    {
-        make_instruction(stack_a, stack_b, instruction);
-        instruction = get_next_line(0);
-        if(!instruction)
-            check_sort(stack_a, len);
-    }
+	instruction = get_next_line(0);
+	while (instruction)
+	{
+		make_instruction(stack_a, stack_b, instruction);
+		instruction = get_next_line(0);
+		if (!instruction)
+			check_sort(stack_a, len);
+	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    l_linked    *stack_a = NULL;
-    l_linked    *stack_b = NULL;
+	t_linked	*stack_a;
+	t_linked	*stack_b;
 
-    if(ac > 2)
-        check_multiple_arguments(ac, av, &stack_a, &stack_b);
-    else if(ac == 2)  
-        check_one_argument(av, &stack_a, &stack_b);
-    free_stack(&stack_a);
-    free_stack(&stack_b);
+	stack_a = NULL;
+	stack_b = NULL;
+	if (ac >= 2)
+	{
+		check_arguments(ac, av, &stack_a, &stack_b);
+		free_stack(&stack_a);
+		free_stack(&stack_b);
+	}
 }
