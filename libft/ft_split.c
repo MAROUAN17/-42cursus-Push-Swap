@@ -6,7 +6,7 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:05:45 by maglagal          #+#    #+#             */
-/*   Updated: 2023/11/10 17:43:48 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:26:54 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	*freeing_memory(char **p, size_t z)
 {
 	while (z > 0)
 	{
-		--z; 
+		--z;
 		free(p[z]);
 	}
 	free(p);

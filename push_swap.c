@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: maglagal <maglagal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:54:14 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/29 16:32:46 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:17:06 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int	main(int ac, char **av)
 	{
 		check = check_arguments(ac, av, &stack_a);
 		if (!check)
+		{	
 			write(2, "Error\n", 6);
+		}
 		else if (check)
 			sort(&stack_a, &stack_b);
 		free_stack(&stack_a);

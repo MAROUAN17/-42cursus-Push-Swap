@@ -6,12 +6,11 @@
 /*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:42:42 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/24 15:09:14 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/01/29 10:22:42 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*freeing_memory(char **ptr)
 {

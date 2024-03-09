@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: maglagal <maglagal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:30:35 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/29 16:18:02 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:16:35 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ int	check_arguments(int ac, char **av, t_linked **stack_a)
 	if (check || check_doubles(*stack_a) || check_before_sort(stack_a))
 		return (0);
 	else
+	{
 		return (1);
+	}
 }

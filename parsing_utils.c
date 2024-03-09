@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maglagal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: maglagal <maglagal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 09:56:48 by maglagal          #+#    #+#             */
-/*   Updated: 2024/01/27 09:56:49 by maglagal         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:18:27 by maglagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "header.h"
+#include <stdio.h>
 
 size_t	check_number(char *number)
 {
